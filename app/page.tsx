@@ -1,95 +1,42 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+"use client";
+
+import NumberBox from "@/components/elements/Input/NumberBox";
+import {useState} from "react";
+import Term from "@/features/calculation/components/Term";
+import Button from "@/components/elements/Button/Button";
 
 export default function Home() {
-  return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    const [loanStartYear, setLoanStartYear] = useState()
+    const [loanStartMonth, setLoanStartMonth] = useState()
+    const [loanEndYear, setLoanEndYear] = useState()
+    const [loanEndMonth, setLoanEndMonth] = useState()
+    const [saving, setSaving] = useState()
+    const [result, setResult] = useState(0);
+
+    const fetchResult = async () => {
+        //バックエンドを実装した後に実装する
+        //const response = await fetch('../features/calculation/api/getResult');
+        //const data = await response.json();
+        const data = 20000
+        setResult(data);
+    };
+
+    return (
+    <main className="flex flex-col items-center">
+        <div className="m-8">
+            <h1 className="text-text text-2xl text-center">Loan-based scholarship </h1>
+            <Term startYear={loanStartYear} setStartYear={setLoanStartYear} startMonth={loanStartMonth} setStartMonth={setLoanStartMonth} endYear={loanEndYear} setEndYear={setLoanEndYear} endMonth={loanEndMonth} setEndMonth={setLoanEndMonth}/>
         </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+        <div className="m-8">
+            <NumberBox number={saving} setNumber={setSaving} label={"saving"}/>
+        </div>
+        <div className="m-8">
+            <Button onClick={fetchResult}/>
+        </div>
+        <div className="m-8">
+            <h1 className="text-text text-2xl text-center">Debt</h1>
+            <p>{result}</p>
+        </div>
     </main>
   )
 }
